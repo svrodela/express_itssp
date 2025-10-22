@@ -5,9 +5,13 @@ app.use(express.json());
 //motor de vistas
 app.set('view engine', 'ejs');
 
-app.get('/inicio', (req, res) => {
-  res.send('¡Hola, mundo!');
+app.get('/i', (req, res) => {
+  res.render('inicio', {
+    titulo: 'Página de Inicio',
+    mensaje: 'Bienvenido a nuestra tienda en línea'
+  });
 });
+
 app.get('/',(req,res)=>{  
     res.render('index', {
     titulo: 'Productos',
@@ -20,7 +24,7 @@ app.get('/',(req,res)=>{
   });
  });
 
- app.get('/productos', (req, res) => {
+ app.get('/inicio', (req, res) => {
   const productos = [
     {
       nombre: 'Audífonos Bluetooth',
@@ -41,8 +45,7 @@ app.get('/',(req,res)=>{
       imagen: 'https://picsum.photos/200?3'
     }
   ];
-
-  res.render('productos', { productos });
+  res.render('inicio', { productos });
 });
 
 
