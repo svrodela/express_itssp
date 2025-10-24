@@ -12,11 +12,27 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
-// credenciales
+/*
 const serviceAccount = require("./firebase_key.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
+*/
+let serviceAccount;
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+  // Si está en Render, se carga desde la variable
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+} else {
+  // Si estás en local, se usa el archivo
+  serviceAccount = require('./firebase_key.json');
+}
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
+
+
 const db = admin.firestore();// Rutas de la API de productos
  
 
